@@ -17,21 +17,21 @@ function rewriteSpreadsheet(){
   var paidMonthIndex = sheetsNames.indexOf(paidMonth)
   var paidMonthSheet = as.getSheetByName(sheetsNames[paidMonthIndex])
 
-  //結,晴人の負担額を計算
-  if (chargeYui==="" && chargeHaru===""){
-    chargeYui = paidAmount/2
-    chargeHaru = paidAmount/2
-  }else if(chargeYui===""){
-    chargeYui = paidAmount - chargeHaru
-  }else if(chargeHaru===""){
-    chargeHaru = paidAmount - chargeYui
+  //w,mの負担額を計算
+  if (charge_w==="" && charge_m===""){
+    charge_w = paidAmount/2
+    charge_m = paidAmount/2
+  }else if(charge_w===""){
+    charge_w = paidAmount - charge_m
+  }else if(charge_m===""){
+    charge_m = paidAmount - charge_w
   }
 
   //該当シートに最新回答を反映
-  if (chargeYui+chargeHaru==paidAmount && payer=="結"){
-    paidMonthSheet.appendRow([payer,paidDate,purpose,paidAmount,,chargeYui,chargeHaru])
-  }else if(chargeYui+chargeHaru==paidAmount && payer=="晴人"){
-    paidMonthSheet.appendRow([payer,paidDate,purpose,,paidAmount,chargeYui,chargeHaru])
+  if (charge_w+charge_m==paidAmount && payer=="w"){
+    paidMonthSheet.appendRow([payer,paidDate,purpose,paidAmount,,charge_w,charge_m])
+  }else if(charge_w+charge_m==paidAmount && payer=="m"){
+    paidMonthSheet.appendRow([payer,paidDate,purpose,,paidAmount,charge_w,charge_m])
   }else{ //負担額に矛盾がある場合
     respSheet.getRange(respLR,respLC+1).setValue("エラー！")
   }
